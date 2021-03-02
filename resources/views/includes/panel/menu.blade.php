@@ -7,25 +7,25 @@
           <!-- Nav items -->
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link active" href="examples/dashboard.html">
+              <a class="nav-link active" href="/dashboard">
                 <i class="ni ni-tv-2 text-primary"></i>
                 <span class="nav-link-text">Dashboard</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="examples/icons.html">
+              <a class="nav-link" href="/specialties">
                 <i class="ni ni-planet text-blue"></i>
                 <span class="nav-link-text">Especialidades</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="examples/map.html">
+              <a class="nav-link" href="/doctors">
                 <i class="ni ni-single-02 text-red"></i>
                 <span class="nav-link-text">Médicos</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="examples/profile.html">
+              <a class="nav-link" href="/patiens">
                 <i class="ni ni-satisfied text-info"></i>
                 <span class="nav-link-text">Pacientes</span>
               </a>
@@ -49,13 +49,13 @@
           <!-- Navigation -->
           <ul class="navbar-nav mb-md-3">
             <li class="nav-item">
-              <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/getting-started/overview.html" target="_blank">
+              <a class="nav-link" href="#" target="_blank">
                 <i class="ni ni-collection text-yellow"></i>
                 <span class="nav-link-text">Frecuencia de citas</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/foundation/colors.html" target="_blank">
+              <a class="nav-link" href="#" target="_blank">
                 <i class="ni ni-badge text-orange"></i>
                 <span class="nav-link-text">Médicos más activos</span>
               </a>
