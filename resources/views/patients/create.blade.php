@@ -9,7 +9,7 @@
                     <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                         <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                         <li class="breadcrumb-item"><a href="/dashboard"><i class="fas fa-home"></i></a></li>
-                        <li class="breadcrumb-item"><a href="/doctors">Médicos</a></li>
+                        <li class="breadcrumb-item"><a href="/patients">Pacientes</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Agregar</li>
                         </ol>
                     </nav>
@@ -23,10 +23,10 @@
             <div class="card-header border-0">
               <div class="row align-items-center">
                 <div class="col">
-                  <h3 class="mb-0">Nuevo Médico</h3>
+                  <h3 class="mb-0">Nuevo Paciente</h3>
                 </div>
                 <div class="col text-right">
-                  <a href="{{ url('/doctors') }}" class="btn btn-sm btn-default">Cancelar</a>
+                  <a href="{{ url('/patients') }}" class="btn btn-sm btn-default">Cancelar</a>
                 </div>
               </div>
             </div>
@@ -45,10 +45,10 @@
                  </div>
                 @endif
                 
-                <form action="{{ url('doctors') }}" method="POST">
+                <form action="{{ url('patients') }}" method="POST">
                 @csrf
                 <div class="form-group">
-                    <label for="name">Nombre del médico</label>
+                    <label for="name">Nombre del paciente</label>
                     <input type="text" name="name" class="form-control" placeholder="Nombre" value= "{{ old('name') }}" required>
                 </div>
 
@@ -59,7 +59,7 @@
 
                 <div class="form-group">
                     <label for="dni">DNI</label>
-                    <input type="text" name="dni" class="form-control" placeholder="___-_______-_" maxLength="9" value= "{{ old('dni') }}" >
+                    <input type="text" name="dni" class="form-control" placeholder="___-_______-_" value= "{{ old('dni') }}" >
                 </div>
 
                 <div class="form-group">
@@ -70,11 +70,6 @@
                 <div class="form-group">
                     <label for="phone">Teléfono / Móvil</label>
                     <input type="phoneNumber" name="phone" class="form-control" value= "{{ old('phone') }}" >
-                </div>
-
-                <div class="form-group">
-                    <label for="password">Contraseña</label>
-                    <input type="text" name="password" class="form-control" value= "{{ Str::random(6) }}" >
                 </div>
 
                 <button type="submit" class="btn btn-primary">Guardar</button>

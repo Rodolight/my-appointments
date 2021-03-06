@@ -2,10 +2,15 @@
         <!-- Collapse -->
         <div class="collapse navbar-collapse" id="sidenav-collapse-main">
           <h6 class="navbar-heading p-0 text-muted">
+          @if (auth()->user()->role == 'admin')
             <span class="docs-normal">GESTIONAR DATOS</span>
+          @else
+            <span class="docs-normal">Menú</span>  
+          @endif  
           </h6>
           <!-- Nav items -->
           <ul class="navbar-nav">
+           @if (auth()->user()->role == 'admin')
             <li class="nav-item">
               <a class="nav-link active" href="/dashboard">
                 <i class="ni ni-tv-2 text-primary"></i>
@@ -25,11 +30,46 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/patiens">
+              <a class="nav-link" href="/patients">
                 <i class="ni ni-satisfied text-info"></i>
                 <span class="nav-link-text">Pacientes</span>
               </a>
             </li>
+            @elseif (auth()->user()->role == 'doctor')
+              <li class="nav-item">
+                <a class="nav-link active" href="/schedule">
+                  <i class="ni ni-calendar-grid-58 text-orange"></i>
+                  <span class="nav-link-text">Gestionar horario</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/specialties">
+                  <i class="ni ni-time-alarm text-blue"></i>
+                  <span class="nav-link-text">Mis citas</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/doctors">
+                  <i class="ni ni-satisfied text-info"></i>
+                  <span class="nav-link-text">Mis pacientes</span>
+                </a>
+              </li>
+              
+            @else  {{-- Patients --}}
+               <li class="nav-item">
+                <a class="nav-link active" href="/dashboard">
+                  <i class="ni ni-send text-orange"></i>
+                  <span class="nav-link-text">Reservar citas</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/specialties">
+                  <i class="ni ni-time-alarm text-blue"></i>
+                  <span class="nav-link-text">Mis citas</span>
+                </a>
+              </li>
+              
+            @endif
             <li class="nav-item">
               <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('formLogout').submit();">
                 <i class="ni ni-key-25"></i>
@@ -40,6 +80,7 @@
               </form>
             </li>
         </ul>
+         @if (auth()->user()->role == 'admin')
           <!-- Divider -->
           <hr class="my-3">
           <!-- Heading -->
@@ -61,5 +102,6 @@
               </a>
             </li>
          </ul>
+         @endif
         </div>
       </div>
