@@ -1,5 +1,10 @@
 <x-app-layout>
    
+@section('styles')
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+@endsection
+
     <div class="col-xl-12 card-header mb-4">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-2 bg-white border-b border-gray-200">
@@ -80,9 +85,30 @@
                     <p>Ingrese un valor solo si desea actualizar la contraseña</p>
                 </div>
 
+                <div class="form-group">
+                  <label for="specialties">Especialidades</label>
+                  <select class=" form-control selectpicker" id="specialties" name="specialties[]" 
+                  multiple title="" data-style="btn-secondary">
+                   @foreach($specialties as  $specialty)
+                     <option value="{{$specialty->id }}">{{ $specialty->name }}</option>
+                   @endforeach
+                  </select>
+                </div>
+
                 <button type="submit" class="btn btn-primary">Guardar</button>
                 </form>
            </div>
        
       </div>
+
+      @section('scripts')
+              <!-- Latest compiled and minified JavaScript -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+        <script>
+         $(document).ready(() =>{
+            $('#specialties').selectpicker('val', @json($specialty_ids));
+         });
+        </script>
+      @endsection
+
 </x-app-layout>

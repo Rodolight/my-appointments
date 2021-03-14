@@ -48,4 +48,27 @@ class UserFactory extends Factory
             ];
         });
     }
+
+    // create patients
+
+    public function patients()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'role' => 'patient',
+            ];
+        });
+    }
+
+     // create doctors
+
+     public function doctors()
+     {
+         return $this->state(function (array $attributes) {
+             return [
+                 'role' => 'doctor',
+             ];
+         });
+     }
+
 }

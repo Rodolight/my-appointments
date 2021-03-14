@@ -6,6 +6,8 @@ use App\Http\Controllers\Admin\SpecialtyController;
 use App\Http\Controllers\Admin\DoctorController;
 use App\Http\Controllers\Admin\PatientController;
 use App\Http\Controllers\Doctor\ScheduleController;
+use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\Api;
 
 Route::get('/', function () {
     return view('welcome');
@@ -17,6 +19,7 @@ Route::get('/dashboard', function () {
 
 require __DIR__.'/auth.php';
 
+//Group Admin
 Route::middleware(['auth', 'admin'])->group(function () {
    
     // Specialty Use controller in laravel 8.x 
@@ -36,10 +39,21 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
 });
 
-
+// Group Doctor
 Route::middleware(['auth', 'doctor'])->group(function () {
 
     Route::get('/schedule',[ScheduleController:: class, 'edit']);
     Route::post('/schedule',[ScheduleController:: class, 'store']);
+
+});
+
+// Group Patient
+Route::middleware('auth')->group(function () {
+    Route::get('/appointments/create',[AppointmentController:: class, 'create']);
+    Route::post('/appointments',[AppointmentController:: class, 'store']);
+
+    //JSON
+    Route::get('/specialties/{specialty}/doctors',[Api\SpecialtyController:: class, 'doctors']);
+    Route::get('/schedule/hours',[Api\ScheduleController:: class, 'hours']);
 
 });

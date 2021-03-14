@@ -34,6 +34,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'pivot'
     ];
 
     /**
@@ -45,6 +46,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+
+     // User->specialties
+     public function specialties(){
+        return $this->belongsToMany(Specialty::class)->withTimeStamps();
+    }
+
+
     public function scopePatients($query){
         return $query->where('role', 'patient');
     }
@@ -53,5 +61,5 @@ class User extends Authenticatable
         return $query->where('role', 'doctor');
     }
 
-    
+   
 }

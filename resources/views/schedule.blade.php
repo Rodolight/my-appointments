@@ -21,91 +21,116 @@
       <form action="{{ '/schedule'}}" method="POST"> 
         @csrf
         <div class="card">
-                <div class="card-header border-0">
-                <div class="row align-items-center">
-                    <div class="col">
-                    <h3 class="mb-0">Gestionar horarios</h3>
+            <div class="card-header border-0">
+                 <div class="row align-items-center">
+                        <div class="col">
+                        <h3 class="mb-0">Gestionar horarios</h3>
+                        </div>
+                        <div class="col text-right">
+                        <button type="submit" class="btn btn-sm btn-success">Guardar cambios</button>
+                        </div>
                     </div>
-                    <div class="col text-right">
-                      <button type="submit" class="btn btn-sm btn-success">Guardar cambios</button>
-                    </div>
-                </div>
-                </div>
-                <div class="table-responsive">
-                
+            </div>
+            <div class="card-body">
+               @if(session('notification'))
+                 <div class="alert alert-success" role="alert">
+                   {{ session('notification') }}
+                 </div>
+               @endif
+
+               @if(session('errors'))
+                 <div class="alert alert-danger" role="alert">
+                   Los cambios se han guardado, pero debes corregir lo siguiente:
+                   <ul>
+                      @foreach(session('errors') as $error)
+                          <li>{{ $error }}</li>
+                      @endforeach
+                   </ul>
+                 </div>
+               @endif
+            </div>
+            <div class="table-responsive">
                 <table class="table align-items-center table-flush">
-                    <thead class="thead-light">
-                    <tr>
-                        <th scope="col">Día</th>
-                        <th scope="col">activo</th>
-                        <th scope="col " class="text-center">Turno matutino</th>
-                        <th scope="col" class="text-center">Turno vespertino</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                   
-                    @foreach($days as $key => $day)
+                        <thead class="thead-light">
                         <tr>
-                        <th> {{ $day }}</th>
-                        <td>
-                            <label class="custom-toggle">
-                            <input type="checkbox" name="active[]" value={{ $key }}>
-                            <span class="custom-toggle-slider rounded-circle"></span>
-                            </label>
-                        </td>
-                        <td>
-                            <div class="row">
-                                <div class="col">
-                                <select class="form-control" name="morning_start[]">
-                                    @for($i=5; $i<= 11; $i++)
-                                        <option value="{{ $i }}:00 ">{{ $i }}:00 am</option>
-                                        <option value="{{ $i }}:30 ">{{ $i }}:30 am</option>
-                                    @endfor
-                                    
-                                    </select>
-                                </div>
-                                <div class="col">
-                                  <select class="form-control" name="morning_end[]">
-                                    @for($i=5; $i<= 11; $i++)
-                                        <option value="{{ $i }}:00">{{ $i }}:00 am</option>
-                                        <option value="{{ $i }}:30">{{ $i }}:30 am</option>
-                                    @endfor
-                                        <option value="{{ $i }}:00"> 12:00 pm</option>
-                                    </select>
-                                </div>  
-                            </div>
-                        </td>
-                        <td>
-                            <div class="row">
-                                <div class="col">
-                                <select class="form-control" name="afternoon_start[]">
-                                    @for($i=1; $i<= 7; $i++)
-                                        <option value="{{ $i+12 }}:00 ">{{ $i }}:00 pm</option>
-                                        <option value="{{ $i+12 }}:30 ">{{ $i }}:30 pm</option>
-                                    @endfor
-                                    </select>
-                                </div>
-                                <div class="col">
-                                    <select class="form-control" name="afternoon_end[]">
-                                    @for($i=1; $i<= 7; $i++)
-                                        <option value="{{ $i+12 }}:00 ">{{ $i }}:00 pm</option>
-                                        <option value="{{ $i+12 }}:30">{{ $i }}:30 pm</option>
-                                    @endfor
-                                    <option value="{{ $i+12 }}:00"> 08:00 pm</option>
-                                    </select>
-                                </div>  
-                            </div>
-                        </td>
+                            <th scope="col">Día</th>
+                            <th scope="col">activo</th>
+                            <th scope="col " class="text-center">Turno matutino</th>
+                            <th scope="col" class="text-center">Turno vespertino</th>
                         </tr>
-                    @endforeach
-                                        
+                        </thead>
+                        <tbody>
                     
-                    </tbody>
-                </table>
-                </div>
-            
-            
-        
+                        @foreach($workDays as $key => $workDay)
+                            <tr>
+                            <th> {{ $days[$key] }}</th>
+                            <td>
+                                <label class="custom-toggle">
+                                <input type="checkbox" id="active" name="active[]" value={{ $key }}  @if($workDay->active) checked @endif>
+                                <span class="custom-toggle-slider rounded-circle"></span>
+                                </label>
+                            </td>
+                            <td>
+                                <div class="row">
+                                    <div class="col">
+                                     <select class="form-control" id="mstart" name="morning_start[]" >
+                                        @for( $i=0; $i < count($mornings)-1; $i++ )
+                                             <option value="{{ $mornings[$i]['id'] }}" @if( $mornings[$i]['name'] == $workDay->morning_start) selected @endif >
+                                               {{ $mornings[$i]['name'] }}
+                                             </option> 
+                                        @endfor
+                                     </select>
+                                    </div>
+                                    <div class="col">
+                                       <select class="form-control" name="morning_end[]">
+                                            @for( $i=0; $i < count($mornings); $i++ )
+                                                <option value="{{ $mornings[$i]['id'] }}" @if( $mornings[$i]['name'] == $workDay->morning_end) selected @endif >
+                                                {{ $mornings[$i]['name'] }}
+                                                </option> 
+                                            @endfor
+                                       </select>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="row">
+                                    <div class="col">
+                                       <select class="form-control" name="afternoon_start[]">
+                                         @for( $i=0; $i < count($afternoons)-1; $i++ )
+                                             <option value="{{ $afternoons[$i]['id'] }}" @if( $afternoons[$i]['name'] == $workDay->afternoon_start) selected @endif >
+                                               {{ $afternoons[$i]['name'] }}
+                                             </option> 
+                                         @endfor 
+                                       </select>
+                                    </div>
+                                    <div class="col">
+                                        <select class="form-control" name="afternoon_end[]">
+                                          @for( $i=0; $i < count($afternoons); $i++ )
+                                             <option value="{{ $afternoons[$i]['id'] }}" @if( $afternoons[$i]['name'] == $workDay->afternoons_end) selected @endif >
+                                               {{ $afternoons[$i]['name'] }}
+                                             </option> 
+                                         @endfor
+                                        </select>
+                                    </div>  
+                                </div>
+                            </td>
+                            </tr>
+                        @endforeach
+                                            
+                        
+                        </tbody>
+                    </table>
+            </div>
         </div>
       </form>
 </x-app-layout>
+{{-- <script>
+ $(document).ready(function() {
+    $('#active').on("change", function() {
+        if(!$(this).is(':checked'))
+        $('#mstart').attr('disabled', 'disabled');
+       else
+        $('#mstart').removeAttr('disabled');
+    });
+ });
+</script> --}}

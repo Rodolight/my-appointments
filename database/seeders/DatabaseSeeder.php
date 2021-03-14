@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\User;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,15 +13,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        User::create([
-            'name' => 'Rodolfo De Pena',
-            'email' => 'rde_pena@hotmail.com',
-            'password' => bcrypt('Test1234'),
-            'dni' => '06500229650',
-            'address' => '',
-            'phone' => '',
-            'role'=>'admin'
+        // \App\Models\User::factory(10)->create();
+        $this->call([
+            UsersSeeder::class,
+            SpecialtiesSeeder::class,
+            WorkDaySeeder::class,
         ]);
-        User::factory(20)->create();
     }
 }
