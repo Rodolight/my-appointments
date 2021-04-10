@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             UsersSeeder::class,
             SpecialtiesSeeder::class,
             WorkDaySeeder::class,
+            AppointmentsSeeder::class,
         ]);
     }
 }

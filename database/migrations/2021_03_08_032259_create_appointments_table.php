@@ -30,9 +30,10 @@ class CreateAppointmentsTable extends Migration
              $table->foreign('patient_id')->references('id')->on('users');
    
              $table->date('schedule_date');
-            $table->time('schedule_time');
-            $table->string('type');
-            $table->timestamps();
+             $table->time('schedule_time');
+             $table->string('type');
+             
+             $table->timestamps();
         });
     }
 

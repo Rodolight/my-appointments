@@ -5,12 +5,13 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\SpecialtyController;
 use App\Http\Controllers\Admin\DoctorController;
 use App\Http\Controllers\Admin\PatientController;
+use App\Http\Controllers\Admin\ChartController;
 use App\Http\Controllers\Doctor\ScheduleController;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\Api;
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/login'); //view('welcome');
 });
 
 Route::get('/dashboard', function () {
@@ -30,6 +31,11 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/specialties', [SpecialtyController:: class, 'store'])->name('saveSpecialty'); //envio del form: ruta con nombre en el controlador 
     Route::put('/specialties/{specialty}', [SpecialtyController:: class, 'update'])->name('updateSpecialty');
     Route::delete('/specialties/{specialty}', [SpecialtyController:: class, 'destroy'])->name('deleteSpecialty');
+
+    //Charts
+    Route::get('/charts/appointments/line',[ChartController:: class, 'appointments']);
+    Route::get('/charts/doctors/bar',[ChartController:: class, 'doctors']);
+    Route::get('/charts/doctors/bar/data',[ChartController:: class, 'doctorsJson']);
 
     // Dortors
     Route::resource('doctors', DoctorController::class);
@@ -52,6 +58,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/appointments/create',[AppointmentController:: class, 'create']);
     Route::post('/appointments',[AppointmentController:: class, 'store']);
 
+    Route::get('/appointments',[AppointmentController:: class, 'index']);
+    Route::get('/appointments/{appointment}',[AppointmentController:: class, 'show']);
+
+    Route::post('/appointments/{appointment}/cancel',[AppointmentController:: class, 'cancel']);
+    Route::get('/appointments/{appointment}/cancel',[AppointmentController:: class, 'showCancel']);
+    Route::post('/appointments/{appointment}/confirm',[AppointmentController:: class, 'Confirm']);
     //JSON
     Route::get('/specialties/{specialty}/doctors',[Api\SpecialtyController:: class, 'doctors']);
     Route::get('/schedule/hours',[Api\ScheduleController:: class, 'hours']);
