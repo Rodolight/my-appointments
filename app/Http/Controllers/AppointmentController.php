@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\appointment;
+use App\Models\Appointment;
 use  App\Models\Specialty;
 use  App\Models\CancelledAppointment;
 use Carbon\Carbon;
