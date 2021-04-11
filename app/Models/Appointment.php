@@ -41,7 +41,7 @@ class Appointment extends Model
     // Appointment hasOne 1 - 1/0 belongsTo CancelledAppointment
     // $appointment -> cancellation->justification
     public function cancellation(){
-        return $this->hasOne(CancelledAppointment:: class);
+        return $this->hasOne(CancelledAppointment::class);
     }
    
     // Accessor
