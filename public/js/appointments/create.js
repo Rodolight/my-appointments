@@ -15,7 +15,7 @@ $(function () {
   
    $specialty.change( () =>{
      const specialtyId =  $specialty.val();
-     const url = `/specialties/${specialtyId}/doctors`;
+     const url = `/api/specialties/${specialtyId}/doctors`;
      // retornar el JSON
      if(specialtyId != ''){
        $.getJSON(url, onDoctorsLoaded);
@@ -43,7 +43,7 @@ $(function () {
     if($doctor.val() != null ){
        const selectedDate = $date.val();
        const doctorId = $doctor.val();
-       const url = `/schedule/hours?date=${selectedDate}&doctor_id=${doctorId}`;
+       const url = `/api/schedule/hours?date=${selectedDate}&doctor_id=${doctorId}`;
       
        $.getJSON(url,displayHours); 
 

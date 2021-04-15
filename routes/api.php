@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\SpecialtyController;
+use App\Http\Controllers\Api\ScheduleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +16,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::post('/login','AuthController@login');
+
+//Public resources in JSON format
+Route::get('/specialties',[SpecialtyController:: class, 'index']);
+Route::get('/specialties/{specialty}/doctors',[SpecialtyController:: class, 'doctors']);
+Route::get('/schedule/hours',[ScheduleController:: class, 'hours']);
+
+Route::middleware('auth:api')->group( function () {
+    
+    Route::get('/user', 'UserController@show');
+    Route::post('/logout', 'AuthController@logout');
+
 });

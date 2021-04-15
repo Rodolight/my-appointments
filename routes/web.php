@@ -64,8 +64,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/appointments/{appointment}/cancel',[AppointmentController:: class, 'cancel']);
     Route::get('/appointments/{appointment}/cancel',[AppointmentController:: class, 'showCancel']);
     Route::post('/appointments/{appointment}/confirm',[AppointmentController:: class, 'Confirm']);
-    //JSON
-    Route::get('/specialties/{specialty}/doctors',[Api\SpecialtyController:: class, 'doctors']);
-    Route::get('/schedule/hours',[Api\ScheduleController:: class, 'hours']);
+    // //JSON
+    // Route::get('/specialties/{specialty}/doctors',[Api\SpecialtyController:: class, 'doctors']);
+    // Route::get('/schedule/hours',[Api\ScheduleController:: class, 'hours']);
 
 });
