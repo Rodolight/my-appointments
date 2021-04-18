@@ -17,7 +17,7 @@ class AuthController extends Controller
 
      if(Auth::attempt($credentials)){ 
         $user = Auth::user(); 
-        $jwt =  $user->createToken('My-Appointments')-> accessToken; 
+        $jwt =  $user->createToken('access_token')-> accessToken; 
         $success = true;
 
        // $data = compact('user', 'jwt');
