@@ -25,9 +25,9 @@ class AuthController extends Controller
         //return response()->json(['success' => $success], $this-> successStatus); 
      } 
      else{ 
-         $error = true;
+         $success = false;
          $message = 'Invalid credentials';
-         return compact('error', 'message'); 
+         return compact('success', 'message'); 
         //return response()->json(['error'=>'Unauthorised'], 401); 
      } 
     } 
