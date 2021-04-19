@@ -22,6 +22,13 @@ class Appointment extends Model
        'updated_at'
     ];
 
+    protected $hidden = [
+        'specialty_id',
+        'doctor_id',
+        'schedule_time'
+    ];
+
+    protected $appends = ['schedule_time_12'];
     // N $appointment->specialty 1  Relacion Mucho a uno
     public function specialty(){
         return $this->belongsTo(Specialty::class);
@@ -45,7 +52,7 @@ class Appointment extends Model
     }
    
     // Accessor
-    // $appointment->Schedule_time_12
+    // $appointment->schedule_time_12
     public function getScheduleTime12Attribute()
     {
         return (new Carbon($this->schedule_time))->format('g:i A');

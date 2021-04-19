@@ -30,7 +30,6 @@ class AuthServiceProvider extends ServiceProvider
 
        // Passport::hashClientSecrets();
 
-
         Passport::routes();
         
         Passport::tokensExpireIn(now()->addDays(15));
