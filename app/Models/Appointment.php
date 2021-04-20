@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 use Carbon\Carbon;
 
 class Appointment extends Model
@@ -61,6 +62,26 @@ class Appointment extends Model
     public function getUpdatedAtDateAttribute()
     {
         return (new Carbon($this->updated_at))->format('Y-m-d');
+    }
+
+    static public function createForPatient(Request $request, $patientId){
+        $data = $request->only([
+            'description',
+            'specialty_id',
+            'doctor_id',
+            'schedule_date',
+            'schedule_time',
+            'type'
+        ]);
+
+        $data['patient_id'] = $patientId;
+
+        // right fotmat
+        $carbonTime = Carbon::createFromFormat('g:i A', $data['schedule_time']);
+        $data['schedule_time'] = $carbonTime->format('H:i:s');
+
+        return self::create($data);
+
     }
 
 }

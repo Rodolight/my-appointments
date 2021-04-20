@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Auth;
 
+use App\Http\Requests\StoreAppointment;
+
 class AppointmentController extends Controller
 {
     public function index(){
@@ -30,7 +32,9 @@ class AppointmentController extends Controller
      ]);
     }
 
-    public function store(){
+    public function store(StoreAppointment $request){
+      $success = Appointment::createForPatient($request, auth()->id());
 
+      return compact('success');
     }
 }
