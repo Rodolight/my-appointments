@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+
+use Illuminate\Auth\Events\Registered;
 use Auth;
-use Illuminate\Auth\RequestGuard;
+use App\Models\User;
 
 class AuthController extends Controller
 {
@@ -43,4 +45,21 @@ class AuthController extends Controller
             } 
          
     }
+
+    public function register(Request $request)
+    {
+        $request->validate(User::$rules);
+
+        $user = User::createPatient($request);
+
+        event(new Registered($user));
+
+        Auth::guard()->login($user);
+
+        $jwt =  $user->createToken('access_token')-> accessToken; 
+        $success = true;
+
+        return compact('success','user','jwt');
+    }
 }
+ 

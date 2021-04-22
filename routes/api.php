@@ -17,6 +17,7 @@ use App\Http\Controllers\Api\ScheduleController;
 */
 
 Route::post('/login','AuthController@login');
+Route::post('/register','AuthController@register');
 
 //Public resources in JSON format
 Route::get('/specialties',[SpecialtyController:: class, 'index']);

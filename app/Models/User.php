@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable
 {
@@ -42,6 +44,12 @@ class User extends Authenticatable
 
     ];
 
+    public static $rules = [
+        'name' => 'required|string|max:255',
+        'email' => 'required|string|email|max:255|unique:users',
+        'password' => 'required|string|confirmed|min:8',
+    ];
+
     /**
      * The attributes that should be cast to native types.
      *
@@ -51,6 +59,15 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+
+    public static function createPatient(Request $request){
+        return self::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role' => 'patient',
+        ]);
+    }
 
      // User->specialties
      public function specialties(){
