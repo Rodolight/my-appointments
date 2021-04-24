@@ -11,11 +11,10 @@ class FirebaseController extends Controller
     public function sendAll(Request $request){
 
      $recipients = User::whereNotNull('device_token')->pluck('device_token')->toArray();
-     
+     dd($recipients);
      fcm()
         ->to($recipients) // $recipients must an array
         ->priority('high')
-        ->timeToLive(0)
         ->notification([
             'title' => $request->input('title'),
             'body' => $request->input('body'),
