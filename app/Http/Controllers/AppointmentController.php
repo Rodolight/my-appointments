@@ -110,7 +110,7 @@ class AppointmentController extends Controller
         
         if($saved){
             $appointment->patient->sendFCM('Su cita ha sido cancelada!.');
-            $notification = 'La cita ha sido cancelada correctamente.';
+            $notification = 'La cita ha sido cancelada correctamente y se envio el push.';
         }else{
             $notification = '¡Ocurrió un error al actualizar la cita!.';
         }
