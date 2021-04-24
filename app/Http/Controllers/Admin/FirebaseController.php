@@ -25,3 +25,4 @@ class FirebaseController extends Controller
         return back()->with(compact('notification'));
     }
 }
+

@@ -100,7 +100,7 @@ class AppointmentController extends Controller
 
           $cancellation = new CancelledAppointment();  
           $cancellation->justification = $request->input('justification');
-          $cancellation->cancelled_by = auth()->id();
+          $cancellation->cancelled_by_id = auth()->id();
 
           $appointment->cancellation()->save($cancellation);
         }
