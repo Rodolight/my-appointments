@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\SpecialtyController;
 use App\Http\Controllers\Admin\DoctorController;
 use App\Http\Controllers\Admin\PatientController;
 use App\Http\Controllers\Admin\ChartController;
+use App\Http\Controllers\Admin\FirebaseController;
 use App\Http\Controllers\Doctor\ScheduleController;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\Api;
@@ -37,11 +38,15 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/charts/doctors/bar',[ChartController:: class, 'doctors']);
     Route::get('/charts/doctors/bar/data',[ChartController:: class, 'doctorsJson']);
 
-    // Dortors
+    // Dortors 
     Route::resource('doctors', DoctorController::class);
 
     // Patients
     Route::resource('patients', PatientController::class);
+
+    // FCM
+    Route::post('/fcm/send', [FirebaseController:: class, 'sendAll']);
+
 
 });
 
