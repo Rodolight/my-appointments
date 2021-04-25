@@ -40,7 +40,8 @@ class SendNotifications extends Command
      */
     public function handle()
     {
-        //return $this->info('Buscando citas médicas confirmadas en las proximas 24 horas.');
+        //return
+         $this->info('Buscando citas médicas.');
         // 24 April -> 25 April (No 26 April)
         // 3pm     -> 3pm
         // hora actual 
@@ -51,24 +52,25 @@ class SendNotifications extends Command
         // schedule_time 15:00:00           hActual - 3m <= schedule_time < hActual + 3m
         $headers = ['id','schedule_date','schedule_time','patient_id'];
 
-       $appointmentsTomorrow = $this->getAppointment24Hours($now->copy()).toArray();
+       $appointmentsTomorrow = $this->getAppointment24Hours($now->copy());
        
-       $this->table($headers,$appointmentsTomorrow->toArray());
-
        foreach ($appointmentsTomorrow as $appointment) {
            $appointment->patient->sendFCM('No olvides tu cita mañana a esta hora.');
-           $this->info('Mensaje FCM enviado 24 horas antes al paciente (ID): ' .$appointment
+           $this->infoy('Mensaje FCM enviado 24 horas antes al paciente (ID): ' .$appointment
             ->patient_id);
        }
 
-       $appointmentsNextHour = $this->getAppointmentNextHour($now->copy()).toArrary();
+       $this->table($headers,$appointmentsTomorrow->toArray());
+
+       $appointmentsNextHour = $this->getAppointmentNextHour($now->copy());
 
        foreach ($appointmentsNextHour as $appointment) {
            $appointment->patient->sendFCM('Tienes una cita en 1 hora. Te esperamos.');
            $this->info('Mensaje FCM enviado faltando 1 hora al paciente (ID): ' .$appointment
            ->patient_id);
        }
-           
+
+       $this->table($headers,$appointmentsNextHour->toArray());
     }
 
     private function getAppointment24Hours($now){
