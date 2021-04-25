@@ -49,8 +49,11 @@ class SendNotifications extends Command
 
         // schedule_date 2021-04-25
         // schedule_time 15:00:00           hActual - 3m <= schedule_time < hActual + 3m
-        
-       $appointmentsTomorrow = $this->getAppointment24Hours($now);
+        $headers = ['id','schedule_date','schedule_time','patient_id'];
+
+       $appointmentsTomorrow = $this->getAppointment24Hours($now->copy()).toArray();
+       
+       $this->table($headers,$appointmentsTomorrow->toArray());
 
        foreach ($appointmentsTomorrow as $appointment) {
            $appointment->patient->sendFCM('No olvides tu cita mañana a esta hora.');
@@ -58,7 +61,7 @@ class SendNotifications extends Command
             ->patient_id);
        }
 
-       $appointmentsNextHour = $this->getAppointmentNextHour($now);
+       $appointmentsNextHour = $this->getAppointmentNextHour($now->copy()).toArrary();
 
        foreach ($appointmentsNextHour as $appointment) {
            $appointment->patient->sendFCM('Tienes una cita en 1 hora. Te esperamos.');
