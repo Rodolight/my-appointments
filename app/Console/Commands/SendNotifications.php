@@ -60,7 +60,8 @@ class SendNotifications extends Command
             ->patient_id);
        }
 
-    
+       $this->info('Buscando citas médicas.');
+
        $appointmentsNextHour = $this->getAppointmentNextHour($now->copy());
        $this->table(['id','schedule_date','schedule_time','patient_id'], $appointmentsNextHour->toArray());
 
@@ -78,7 +79,7 @@ class SendNotifications extends Command
         return  $appointments = Appointment::where('status', 'Confirmada')
         ->where('schedule_date', $now->addDay()->toDateString())
         ->where('schedule_time','>=',$now->copy()->subMinutes(3)->toTimeString())
-        ->where('schedule_time','<',$now->copy()->addMinutes(3)->toTimeString())
+        ->where('schedule_time','<',$now->copy()->addMinutes(2)->toTimeString())
         ->get(['id','schedule_date','schedule_time','patient_id']);    
 
     }
@@ -88,7 +89,7 @@ class SendNotifications extends Command
         return  $appointments = Appointment::where('status', 'Confirmada')
         ->where('schedule_date', $now->addHour()->toDateString())
         ->where('schedule_time','>=',$now->copy()->subMinutes(3)->toTimeString())
-        ->where('schedule_time','<',$now->copy()->addMinutes(3)->toTimeString())
+        ->where('schedule_time','<',$now->copy()->addMinutes(2)->toTimeString())
         ->get(['id','schedule_date','schedule_time','patient_id']);
     }
 }

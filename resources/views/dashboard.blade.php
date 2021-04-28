@@ -73,5 +73,14 @@
           </div>
         @endif
       </div>
-     
+
+      @section('scripts')
+        <script>
+           const appointmentByDay = @json($appointmentByDay);
+        </script>
+        <script src="{{ asset('js/home/home.js') }}"></script>
+      @endsection
+          
 </x-app-layout>
+
+

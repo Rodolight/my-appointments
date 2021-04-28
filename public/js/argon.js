@@ -818,56 +818,12 @@ if($map.length) {
     google.maps.event.addDomListener(window, 'load', initMap);
 }
 
-//
-// Bars chart
-//
-
-var BarsChart = (function() {
-
-	//
-	// Variables
-	//
-
-	var $chart = $('#chart-bars');
-
-
-	//
-	// Methods
-	//
-
-	// Init chart
-	function initChart($chart) {
-
-		// Create chart
-		var ordersChart = new Chart($chart, {
-			type: 'bar',
-			data: {
-				labels: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'],
-				datasets: [{
-					label: 'Citas médicas',
-					data: [25, 20, 30, 22, 17, 29]
-				}]
-			}
-		});
-
-		// Save to jQuery object
-		$chart.data('chart', ordersChart);
-	}
-
-
-	// Init chart
-	if ($chart.length) {
-		initChart($chart);
-	}
-
-})();
-
 'use strict';
 
 //
 // Sales chart
 //
-
+/*
 var SalesChart = (function() {
 
   // Variables
@@ -937,7 +893,7 @@ var SalesChart = (function() {
     init($chart);
   }
 
-})();
+})();*/
 
 //
 // Bootstrap Datepicker

@@ -9,15 +9,22 @@ use App\Http\Controllers\Admin\ChartController;
 use App\Http\Controllers\Admin\FirebaseController;
 use App\Http\Controllers\Doctor\ScheduleController;
 use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Api;
 
 Route::get('/', function () {
     return redirect('/login'); //view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth'])->name('dashboard');
+
+Route::middleware(['auth'])->group(function (){
+
+  Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
+
+});
 
 require __DIR__.'/auth.php';
 
